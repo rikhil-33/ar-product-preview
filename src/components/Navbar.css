@@ -1,105 +1,145 @@
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* Container that handles centered position on screen */
+.floating-nav-wrapper {
+  position: fixed;
+  bottom: 20px; /* Positions floating dock at the bottom for mobile comfort */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: max-content;
+  max-width: 95vw;
+}
+
+@media (min-width: 768px) {
+  .floating-nav-wrapper {
+    bottom: auto;
+    top: 24px; /* Positions floating dock gracefully at the top on desktop profiles */
+  }
+}
+
+/* Glass capsule dock element base */
+.floating-navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
-  height: 68px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 8px 40px rgba(0,0,0,0.4),
-              inset 0 1px 0 rgba(255,255,255,0.18);
+  gap: 14px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Brand styling inside dock */
+.nav-dock-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+.nav-dock-logo .logo-icon {
+  color: #fff;
+  font-size: 15px;
+  filter: drop-shadow(0 0 8px rgba(180, 140, 255, 0.8));
+}
+.nav-dock-logo .logo-text-short {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+/* Middle navigational item arrangement */
+.nav-dock-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-dock-link {
   position: relative;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
-.navbar::before {
-  content: '';
+
+.nav-dock-link:hover,
+.nav-dock-link.active {
+  color: #fff;
+}
+
+/* The fluid capsule overlay backdrop layout */
+.lamp-pill {
   position: absolute;
-  top: 0; left: 5%; right: 5%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  z-index: -1;
 }
 
-.navbar-logo{display:flex;align-items:center;gap:10px;cursor:pointer;}
-.logo-icon{font-size:20px;color:#fff;filter:drop-shadow(0 0 10px rgba(180,140,255,0.8));}
-.logo-text{
-  font-family:var(--font-display);font-weight:800;font-size:18px;
-  color:#fff;letter-spacing:0.06em;
-  text-shadow:0 0 20px rgba(180,140,255,0.5);
-}
-.logo-tag{
-  font-size:11px;color:rgba(255,255,255,0.45);
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(8px);
-  padding:3px 8px;border-radius:999px;
-  border:1px solid rgba(255,255,255,0.12);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.15);
+/* Glowing top micro-accent highlight line */
+.lamp-glow-line {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 2px;
+  background: #b48cff; /* Theme color matching your setup */
+  border-radius: 999px;
+  box-shadow: 0 0 8px #b48cff, 0 0 16px #b48cff;
 }
 
-.navbar-links{display:flex;align-items:center;gap:4px;}
-.nav-link{
-  font-size:14px;color:rgba(255,255,255,0.55);
-  padding:8px 16px;border-radius:999px;
-  transition:0.25s cubic-bezier(0.4,0,0.2,1);font-weight:500;
-}
-.nav-link:hover{
-  color:#fff;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(10px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.2);
-}
-.nav-link.active{
-  color:#fff;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.16);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px rgba(0,0,0,0.2);
+/* Interactive Action Trigger button */
+.btn-dock-action {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: var(--transition);
+  white-space: nowrap;
 }
 
-.navbar-actions{display:flex;align-items:center;gap:12px;}
-.btn-try{
-  background:rgba(255,255,255,0.1);
-  color:#fff;font-family:var(--font-display);font-weight:700;font-size:13px;
-  padding:10px 22px;border-radius:999px;
-  border:1px solid rgba(255,255,255,0.22);
-  transition:0.25s cubic-bezier(0.4,0,0.2,1);
-  letter-spacing:0.02em;
-  backdrop-filter:blur(20px);
-  box-shadow:0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -1px 0 rgba(0,0,0,0.1);
-  position:relative;overflow:hidden;
-}
-.btn-try::before{
-  content:'';position:absolute;inset:0;border-radius:inherit;
-  background:linear-gradient(135deg,rgba(255,255,255,0.28) 0%,rgba(255,255,255,0.05) 50%,transparent 100%);
-  pointer-events:none;
-}
-.btn-try:hover{
-  background:rgba(255,255,255,0.17);
-  border-color:rgba(255,255,255,0.38);
-  transform:translateY(-1px);
-  box-shadow:0 8px 28px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.45);
+.btn-dock-action:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
 }
 
-.hamburger{display:none;flex-direction:column;gap:5px;padding:8px;}
-.hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;transition:0.25s;}
+/* Responsive Visibility Toggles */
+.nav-link-icon { display: none; }
+.nav-link-text { display: inline; }
+.btn-mobile-text { display: none; }
+.btn-desktop-text { display: inline; }
 
-@media(max-width:768px){
-  .navbar{padding:0 20px;}
-  .navbar-links{
-    display:none;position:absolute;top:68px;left:0;right:0;
-    flex-direction:column;
-    background:rgba(10,4,25,0.7);
-    backdrop-filter:blur(24px) saturate(200%);
-    border-bottom:1px solid rgba(255,255,255,0.1);
-    padding:12px;gap:4px;
+@media (max-width: 768px) {
+  .nav-link-text { display: none; }
+  .nav-link-icon { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .navbar-links.open{display:flex;}
-  .nav-link{width:100%;text-align:left;padding:12px 16px;}
-  .hamburger{display:flex;}
-  .btn-try{font-size:12px;padding:8px 14px;}
-  .logo-tag{display:none;}
+  .nav-dock-link {
+    padding: 10px 14px;
+  }
+  .nav-dock-logo { display: none; } /* Drops logo signature on tiny screens to optimize margin spacing */
+  .btn-desktop-text { display: none; }
+  .btn-mobile-text { display: inline; }
 }
