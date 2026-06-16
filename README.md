@@ -64,8 +64,8 @@ npm run dev
 
 - [x] Project setup and architecture
 - [x] 3D product viewer (rotate, zoom, drag)
-- [ ] Camera access and AR overlay
-- [ ] Product catalogue integration
+- [x] Camera access and AR overlay
+- [x] Product catalogue integration
 - [ ] Mobile optimisation
 
 ---
